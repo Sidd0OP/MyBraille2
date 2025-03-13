@@ -8,9 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="gray">#A18E8E</color>
+
     <color name="backgroundColorLight">#FFEFE7</color>
 
     <color name="characterContainerColorLight">#EEC6C6</color>
+
+    <color name="dotContainerColorLight">#FFDAD7</color>
 
     <color name="topBarColorLight">#F9DEDC</color>
 </resources>

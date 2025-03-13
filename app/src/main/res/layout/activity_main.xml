@@ -9,84 +9,151 @@
     tools:context=".MainActivity">
 
     <View
-        android:id="@+id/topBar"
+        android:id="@+id/bottomBar"
         android:layout_width="413dp"
         android:layout_height="200dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="100dp"
         android:background="@color/topBarColorLight"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.2" />
 
     <View
-        android:id="@+id/view3"
+        android:id="@+id/dot_container"
         android:layout_width="306dp"
         android:layout_height="312dp"
-        android:background="@color/purple_500"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/dot_container_style"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.196"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.628" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/charactera_display_container"
         android:layout_width="158dp"
         android:layout_height="154dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/character_container_style"
-        app:layout_constraintBottom_toBottomOf="@+id/topBar"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topBar" />
+        app:layout_constraintTop_toTopOf="@+id/bottomBar" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="137dp"
-        android:layout_height="141dp"
+        android:id="@+id/current_character_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_mono_extralight"
         android:text="A"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="90sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textColor="@color/gray"
+        android:textSize="160sp"
+        app:layout_constraintBottom_toBottomOf="@+id/charactera_display_container"
+        app:layout_constraintEnd_toEndOf="@+id/charactera_display_container"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="@+id/charactera_display_container"
+        app:layout_constraintTop_toTopOf="@+id/charactera_display_container"
+        app:layout_constraintVertical_bias="0.596" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/current_character_description"
         android:layout_width="135dp"
         android:layout_height="26dp"
         android:layout_marginTop="44dp"
-        android:text="TextView"
+        android:fontFamily="@font/roboto"
+        android:text="Character A"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.238"
-        app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/topBar" />
+        app:layout_constraintStart_toEndOf="@+id/charactera_display_container"
+        app:layout_constraintTop_toTopOf="@+id/bottomBar" />
+
+    <TextView
+        android:id="@+id/top_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Touch and Feel"
+        android:textAlignment="center"
+        android:textColor="@color/gray"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/dot_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/dot_top_left"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/dot_style_touch"
+        app:layout_constraintBottom_toBottomOf="@+id/dot_container"
+        app:layout_constraintEnd_toEndOf="@+id/dot_container"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="@+id/dot_container"
+        app:layout_constraintTop_toTopOf="@+id/dot_container"
+        app:layout_constraintVertical_bias="0.111" />
+
+    <View
+        android:id="@+id/dot_top_right"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/dot_style_touch"
+        app:layout_constraintBottom_toBottomOf="@+id/dot_container"
+        app:layout_constraintEnd_toEndOf="@+id/dot_container"
+        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintStart_toStartOf="@+id/dot_container"
+        app:layout_constraintTop_toTopOf="@+id/dot_container"
+        app:layout_constraintVertical_bias="0.111" />
+
+    <View
+        android:id="@+id/dot_center_left"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/dot_style_touch"
+        app:layout_constraintBottom_toTopOf="@+id/dot_bottom_left"
+        app:layout_constraintEnd_toEndOf="@+id/dot_container"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="@+id/dot_container"
+        app:layout_constraintTop_toBottomOf="@+id/dot_top_left" />
+
+    <View
+        android:id="@+id/dot_center_right"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/dot_style_touch"
+        app:layout_constraintBottom_toTopOf="@+id/dot_bottom_right"
+        app:layout_constraintEnd_toEndOf="@+id/dot_container"
+        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintStart_toStartOf="@+id/dot_container"
+        app:layout_constraintTop_toBottomOf="@+id/dot_top_right" />
+
+    <View
+        android:id="@+id/dot_bottom_right"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/dot_style_touch"
+        app:layout_constraintBottom_toBottomOf="@+id/dot_container"
+        app:layout_constraintEnd_toEndOf="@+id/dot_container"
+        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintStart_toStartOf="@+id/dot_container"
+        app:layout_constraintTop_toTopOf="@+id/dot_container"
+        app:layout_constraintVertical_bias="0.857" />
+
+    <View
+        android:id="@+id/dot_bottom_left"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/dot_style_touch"
+        app:layout_constraintBottom_toBottomOf="@+id/dot_container"
+        app:layout_constraintEnd_toEndOf="@+id/dot_container"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="@+id/dot_container"
+        app:layout_constraintTop_toTopOf="@+id/dot_container"
+        app:layout_constraintVertical_bias="0.857" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
