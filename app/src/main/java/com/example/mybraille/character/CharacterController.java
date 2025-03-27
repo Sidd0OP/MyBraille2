@@ -27,7 +27,6 @@ public class CharacterController {
             if(currentCharacterIndex < 35)
             {
                 currentCharacterIndex++;
-
             }else{
                 currentCharacterIndex = 0;
             }
