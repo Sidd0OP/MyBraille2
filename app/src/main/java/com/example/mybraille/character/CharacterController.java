@@ -1,11 +1,15 @@
 package com.example.mybraille.character;
 
+import android.media.MediaPlayer;
 import android.widget.TextView;
+
+import com.example.mybraille.R;
 
 public class CharacterController {
 
     //goes from 0 to 25 for ascii character A - Z , then goes to 35 for numbers 0 - 9
     private static int currentCharacterIndex = 0;
+
 
     public void clockCharacterIndex(int swipeDirection, TextView characterDisplay)
     {
@@ -38,21 +42,21 @@ public class CharacterController {
 
     }
 
-    private String indexToCharacter(int index)
+    public String indexToCharacter(int index)
     {
         if (index >= 0 && index <= 25) {
 
             return String.valueOf((char) ('A' + index));
 
         } else if (index >= 26 && index <= 35) {
-            // Convert to number (0-9)
+
             return String.valueOf((char) ('0' + (index - 26)));
         } else {
             return "";
         }
     }
 
-    public static int getCurrentCharacterIndex() {
+    public int getCurrentCharacterIndex() {
         return currentCharacterIndex;
     }
 }

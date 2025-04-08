@@ -11,16 +11,23 @@ public class Dot {
 
 
 
+    private boolean isActive = false;
+
+
     private boolean touched = false;
+
+
+
+    private int coordinate;
 
     public Dot(View dot)
     {
         this.dot = dot;
     }
 
-    public Dot()
+    public Dot(int coordinate)
     {
-
+        this.coordinate = coordinate;
     }
 
 
@@ -32,6 +39,14 @@ public class Dot {
         this.dot = dot;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
 
     public boolean isTouched() {
         return touched;
@@ -39,5 +54,10 @@ public class Dot {
 
     public void setTouched(boolean touched) {
         this.touched = touched;
+    }
+
+
+    public int getCoordinate() {
+        return coordinate;
     }
 }

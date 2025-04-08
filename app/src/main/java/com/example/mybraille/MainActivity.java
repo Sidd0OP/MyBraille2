@@ -4,7 +4,14 @@ package com.example.mybraille;
 import static androidx.core.view.ViewCompat.performHapticFeedback;
 
 import android.graphics.Rect;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +26,7 @@ import com.example.mybraille.dot.Dot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
@@ -29,12 +37,12 @@ public class MainActivity extends AppCompatActivity{
 
     private View dotContainer;
 
-    private Dot topLeft =  new Dot();
-    private Dot topRight = new Dot();
-    private Dot centerLeft = new Dot();
-    private Dot centerRight = new Dot();
-    private Dot bottomLeft = new Dot();
-    private Dot bottomRight =  new Dot();
+    private Dot topLeft =  new Dot(0);
+    private Dot topRight = new Dot(1);
+    private Dot centerLeft = new Dot(2);
+    private Dot centerRight = new Dot(3);
+    private Dot bottomLeft = new Dot(4);
+    private Dot bottomRight =  new Dot(5);
 
     List<Dot> dotList = new ArrayList<>();
 
@@ -65,6 +73,14 @@ public class MainActivity extends AppCompatActivity{
 
     PatternController patterController = new PatternController();
 
+    private Vibrator vibrator;
+
+
+    /// sound player for character and number audio
+    private SoundPool soundPool;
+
+    HashMap<String, Integer> soundMap = new HashMap<>();
+
 
     //main method for android
     @Override
@@ -75,9 +91,32 @@ public class MainActivity extends AppCompatActivity{
         //hide top menue bar
         getSupportActionBar().hide();
 
+        //initialize vibrator
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        //initialize sound pool
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(10)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+        } else {
+            soundPool  = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        }
+
+
+
 
 
         setContentView(R.layout.activity_main);
+
+        //load sound into pool
+        loadSoundPool();
 
         //load root view
         mainContainer = findViewById(R.id.Container);
@@ -125,10 +164,42 @@ public class MainActivity extends AppCompatActivity{
 
                                 if(!dot.isTouched())
                                 {
-//                                    dot.getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
+
                                     dot.setTouched(true);
 
-                                    //call haptics
+
+
+
+                                    if(dot.isActive() == true)
+                                    {
+                                        switch(dot.getCoordinate())
+                                        {
+                                            case 0:
+                                                vibrator.vibrate(50);
+                                                break;
+
+                                            case 1:
+                                                vibrator.vibrate(30);
+                                                break;
+
+                                            case 2:
+                                                vibrator.vibrate(45);
+                                                break;
+
+                                            case 3:
+                                                vibrator.vibrate(26);                                                break;
+
+                                            case 4:
+                                                vibrator.vibrate(48);
+                                                break;
+
+                                            case 5:
+                                                vibrator.vibrate(39);
+                                                break;
+
+                                        }
+
+                                    }
 
                                 }
 
@@ -138,7 +209,6 @@ public class MainActivity extends AppCompatActivity{
                                 if(dot.isTouched())
                                 {
                                     dot.setTouched(false);
-//                                    dot.getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
                                 }
                             }
                         }
@@ -151,7 +221,6 @@ public class MainActivity extends AppCompatActivity{
 
                         for(Dot dot : dotList)
                         {
-//                            dot.getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
                             dot.setTouched(false);
                         }
                         return true;
@@ -214,6 +283,18 @@ public class MainActivity extends AppCompatActivity{
         characterController.clockCharacterIndex(-1 , characterDisplay);
 
 
+        System.out.println(soundMap);
+
+        if(characterController.getCurrentCharacterIndex() >= 0 && characterController.getCurrentCharacterIndex() <= 25)
+        {
+            playCharacterAudio(characterController.getCurrentCharacterIndex());
+        }else{
+
+            playNumberAudio(characterController.getCurrentCharacterIndex());
+        }
+
+
+
     }
 
     private void bottomBarRightSwipe()
@@ -221,6 +302,14 @@ public class MainActivity extends AppCompatActivity{
         //gets the next character
         characterController.clockCharacterIndex(1, characterDisplay);
 
+
+        if(characterController.getCurrentCharacterIndex() >= 0 && characterController.getCurrentCharacterIndex() <= 25)
+        {
+            playCharacterAudio(characterController.getCurrentCharacterIndex());
+        }else{
+
+            playNumberAudio(characterController.getCurrentCharacterIndex());
+        }
     }
 
 
@@ -231,53 +320,121 @@ public class MainActivity extends AppCompatActivity{
         return rect.contains((int) x, (int) y);
     }
 
+    private void loadSoundPool()
+    {
+        // Load Character A-Z
+        for (char c = 'A'; c <= 'Z'; c++) {
+            String key = "Character_" + c;
+            String resName = "character_" + Character.toLowerCase(c); // Convert to lowercase for res/raw naming
+            int resId = getResources().getIdentifier(resName, "raw", getPackageName());
+
+            if (resId != 0) {
+
+                int soundId = soundPool.load(this , resId, 1);
+                soundMap.put(key, soundId);
+            }
+        }
+
+
+
+        // Load Number 0-9
+        for (int i = 0; i <= 9; i++) {
+            String key = "Number_" + i;
+            String resName = "number_" + i;
+            int resId = getResources().getIdentifier(resName, "raw", getPackageName());
+
+            if (resId != 0) {
+                int soundId = soundPool.load(this, resId, 1);
+                soundMap.put(key, soundId);
+            }
+        }
+
+    }
+    private void playCharacterAudio(int characterIndex)
+    {
+        String key  = "Character_" + characterController.indexToCharacter(characterIndex).toUpperCase();
+        int soundId = soundMap.get(key);
+        if (soundId != 0) {
+            soundPool.play(soundId, 1, 1, 0, 0, 1);
+        }
+    }
+
+    private void playNumberAudio(int numberIndex)
+    {
+        String key = "Number_" + characterController.indexToCharacter(numberIndex);
+
+        int soundId = soundMap.get(key);
+        if (soundId != 0) {
+            soundPool.play(soundId, 1, 1, 0, 0, 1);
+        }
+    }
 
     private void setDots(int[][] dotMatrix)
     {
         if(dotMatrix[0][0] == 1)
         {
             dotList.get(0).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
+            dotList.get(0).setActive(true);
 
-        }else{dotList.get(0).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));}
+        }else{
+            dotList.get(0).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
+            dotList.get(0).setActive(false);
+        }
 
 
 
         if(dotMatrix[0][1] == 1)
         {
             dotList.get(1).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-
-        }else{dotList.get(1).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));}
+            dotList.get(1).setActive(true);
+        }else{
+            dotList.get(1).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
+            dotList.get(1).setActive(false);
+        }
 
 
 
         if(dotMatrix[1][0] == 1)
         {
             dotList.get(2).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
+            dotList.get(2).setActive(true);
 
-        }else{dotList.get(2).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));}
+
+        }else{dotList.get(2).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
+            dotList.get(2).setActive(false);
+        }
 
 
         if(dotMatrix[1][1] == 1)
         {
             dotList.get(3).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
+            dotList.get(3).setActive(true);
 
-        }else{dotList.get(3).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));}
+        }else{dotList.get(3).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
+            dotList.get(3).setActive(false);
+        }
 
 
 
         if(dotMatrix[2][0] == 1)
         {
             dotList.get(4).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
+            dotList.get(4).setActive(true);
 
-        }else{dotList.get(4).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));}
+        }else{dotList.get(4).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
+            dotList.get(4).setActive(false);
+        }
 
 
 
         if(dotMatrix[2][1] == 1)
         {
             dotList.get(5).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
+            dotList.get(5).setActive(true);
 
-        }else{dotList.get(5).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));}
+        }else{dotList.get(5).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
+            dotList.get(5).setActive(false);
+        }
 
     }
 
