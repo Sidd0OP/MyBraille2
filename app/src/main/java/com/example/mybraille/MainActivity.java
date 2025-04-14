@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.example.mybraille.character.CharacterController;
 import com.example.mybraille.character.PatternController;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
     //-----------------swipe data--------------------
 
     private float startX = 0f;
-    private final int swipeThreshold = 150;
+    private final int swipeThreshold = 100;
 
 
 
@@ -94,8 +95,13 @@ public class MainActivity extends AppCompatActivity{
         //initialize vibrator
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightStatusBars(true);
+
         //initialize sound pool
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+
+
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -108,9 +114,6 @@ public class MainActivity extends AppCompatActivity{
         } else {
             soundPool  = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         }
-
-
-
 
 
         setContentView(R.layout.activity_main);
@@ -187,7 +190,7 @@ public class MainActivity extends AppCompatActivity{
                                                 break;
 
                                             case 3:
-                                                vibrator.vibrate(26);                                                break;
+                                                vibrator.vibrate(28);                                                break;
 
                                             case 4:
                                                 vibrator.vibrate(48);
@@ -281,9 +284,9 @@ public class MainActivity extends AppCompatActivity{
     {
         //gets the previous character
         characterController.clockCharacterIndex(-1 , characterDisplay);
+        vibrator.vibrate(50);
 
 
-        System.out.println(soundMap);
 
         if(characterController.getCurrentCharacterIndex() >= 0 && characterController.getCurrentCharacterIndex() <= 25)
         {
@@ -301,7 +304,7 @@ public class MainActivity extends AppCompatActivity{
     {
         //gets the next character
         characterController.clockCharacterIndex(1, characterDisplay);
-
+        vibrator.vibrate(50);
 
         if(characterController.getCurrentCharacterIndex() >= 0 && characterController.getCurrentCharacterIndex() <= 25)
         {
