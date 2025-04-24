@@ -33,7 +33,7 @@ Download from the [provided link](https://github.com/SID-JCP/MyBraille2/releases
 
 Clone the repository and import into **Android Studio** 
 ```bash 
-https://github.com/SID-JCP/MyBraille2.git
+https://github.com/Sidd0OP/MyBraille2.git
 ```  
 ---
 
