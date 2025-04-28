@@ -3,6 +3,7 @@ package com.example.mybraille;
 
 import static androidx.core.view.ViewCompat.performHapticFeedback;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -13,17 +14,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
+import com.example.mybraille.activityManager.ActivityManager;
 import com.example.mybraille.character.CharacterController;
 import com.example.mybraille.character.PatternController;
 import com.example.mybraille.dot.Dot;
+import com.example.mybraille.dot.DotController;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +40,6 @@ public class MainActivity extends AppCompatActivity{
 
     //-------------------ui elements----------------------
     private View mainContainer;
-    private View bottomBar;
 
     private View dotContainer;
 
@@ -58,21 +63,12 @@ public class MainActivity extends AppCompatActivity{
 
     //------------------Controller--------------------
 
-
-    /*
-    Braille Dot Index
-
-    0 *  1 *
-
-    2 *  3 *
-
-    4 *  5 *
-
-     */
-
     CharacterController characterController = new CharacterController();
 
-    PatternController patterController = new PatternController();
+    DotController dotController = new DotController(this);
+
+    ActivityManager activityManager = new ActivityManager(this);
+
 
     private Vibrator vibrator;
 
@@ -91,32 +87,17 @@ public class MainActivity extends AppCompatActivity{
 
         //hide top menue bar
         getSupportActionBar().hide();
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightStatusBars(true);
+        setContentView(R.layout.activity_main);
+
+        //bottom navigation bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.item1);
+
+        activityManager.changeActivity(bottomNavigationView);
 
         //initialize vibrator
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightStatusBars(true);
-
-        //initialize sound pool
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_GAME)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
-
-            soundPool = new SoundPool.Builder()
-                    .setMaxStreams(10)
-                    .setAudioAttributes(audioAttributes)
-                    .build();
-        } else {
-            soundPool  = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        }
-
-
-        setContentView(R.layout.activity_main);
 
         //load sound into pool
         loadSoundPool();
@@ -125,7 +106,7 @@ public class MainActivity extends AppCompatActivity{
         mainContainer = findViewById(R.id.Container);
 
         //load the bottom bar
-        bottomBar = findViewById(R.id.bottomBar);
+        View bottomBar = findViewById(R.id.bottomBar);
         dotContainer =  findViewById(R.id.dot_container);
         characterDisplay = findViewById(R.id.current_character_display);
 
@@ -149,88 +130,47 @@ public class MainActivity extends AppCompatActivity{
         //set patter to A , first
         PatternController.setPattern(0);
         //set the dots
-        setDots(PatternController.dotMatrix);
+        dotController.setDots(PatternController.dotMatrix , dotList);
+
+
+
+
+
 
         mainContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
-                switch (e.getAction()) {
+
+
+                switch (e.getAction())
+                {
+
                     case MotionEvent.ACTION_MOVE:
 
                         float x = e.getRawX();
                         float y = e.getRawY();
 
 
-                        for(Dot dot : dotList)
-                        {
-                            if (isTouchInsideView(x, y, dot.getDot())) {
-
-                                if(!dot.isTouched())
-                                {
-
-                                    dot.setTouched(true);
-
-
-
-
-                                    if(dot.isActive() == true)
-                                    {
-                                        switch(dot.getCoordinate())
-                                        {
-                                            case 0:
-                                                vibrator.vibrate(50);
-                                                break;
-
-                                            case 1:
-                                                vibrator.vibrate(30);
-                                                break;
-
-                                            case 2:
-                                                vibrator.vibrate(45);
-                                                break;
-
-                                            case 3:
-                                                vibrator.vibrate(28);                                                break;
-
-                                            case 4:
-                                                vibrator.vibrate(48);
-                                                break;
-
-                                            case 5:
-                                                vibrator.vibrate(39);
-                                                break;
-
-                                        }
-
-                                    }
-
-                                }
-
-
-                            }else{
-
-                                if(dot.isTouched())
-                                {
-                                    dot.setTouched(false);
-                                }
-                            }
-                        }
+                        dotController.checkDotTouch(dotList , x , y , vibrator);
 
                         return true;
 
 
                     case MotionEvent.ACTION_UP:
 
-
                         for(Dot dot : dotList)
                         {
                             dot.setTouched(false);
                         }
+
+
                         return true;
 
 
 
                 }
+
+
                 return true;
             }
         });
@@ -255,7 +195,7 @@ public class MainActivity extends AppCompatActivity{
                             float deltaX = endX - startX;
 
                             if (Math.abs(deltaX) > swipeThreshold) {
-                                // Sufficient swipe distance
+
                                 if (deltaX > 0) {
                                     // left swipe
                                     bottomBarLeftSwipe();
@@ -265,7 +205,8 @@ public class MainActivity extends AppCompatActivity{
                                     bottomBarRightSwipe();
                                 }
 
-                                setDots(PatternController.dotMatrix);
+                                dotController.setDots(PatternController.dotMatrix , dotList);
+
                             }
                             return true;
 
@@ -316,15 +257,29 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    private boolean isTouchInsideView(float x, float y, View view) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        Rect rect = new Rect(location[0], location[1], location[0] + view.getWidth(), location[1] + view.getHeight());
-        return rect.contains((int) x, (int) y);
-    }
+
 
     private void loadSoundPool()
     {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(1)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+
+        } else {
+            soundPool  = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+
+
+
         // Load Character A-Z
         for (char c = 'A'; c <= 'Z'; c++) {
             String key = "Character_" + c;
@@ -353,6 +308,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
+
     private void playCharacterAudio(int characterIndex)
     {
         String key  = "Character_" + characterController.indexToCharacter(characterIndex).toUpperCase();
@@ -372,74 +328,9 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private void setDots(int[][] dotMatrix)
-    {
-        if(dotMatrix[0][0] == 1)
-        {
-            dotList.get(0).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-            dotList.get(0).setActive(true);
-
-        }else{
-            dotList.get(0).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
-            dotList.get(0).setActive(false);
-        }
 
 
 
-        if(dotMatrix[0][1] == 1)
-        {
-            dotList.get(1).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-            dotList.get(1).setActive(true);
-        }else{
-            dotList.get(1).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
-            dotList.get(1).setActive(false);
-        }
-
-
-
-        if(dotMatrix[1][0] == 1)
-        {
-            dotList.get(2).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-            dotList.get(2).setActive(true);
-
-
-        }else{dotList.get(2).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
-            dotList.get(2).setActive(false);
-        }
-
-
-        if(dotMatrix[1][1] == 1)
-        {
-            dotList.get(3).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-            dotList.get(3).setActive(true);
-
-        }else{dotList.get(3).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
-            dotList.get(3).setActive(false);
-        }
-
-
-
-        if(dotMatrix[2][0] == 1)
-        {
-            dotList.get(4).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-            dotList.get(4).setActive(true);
-
-        }else{dotList.get(4).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
-            dotList.get(4).setActive(false);
-        }
-
-
-
-        if(dotMatrix[2][1] == 1)
-        {
-            dotList.get(5).getDot().setBackground(getDrawable(R.drawable.dot_style_touch));
-            dotList.get(5).setActive(true);
-
-        }else{dotList.get(5).getDot().setBackground(getDrawable(R.drawable.dot_style_no_touch));
-            dotList.get(5).setActive(false);
-        }
-
-    }
 
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item1"
+        android:icon="@drawable/character_number_icon"
+        android:title="@string/learn_caption" />
+    <item
+        android:id="@+id/item2"
+        android:icon="@drawable/sentence_icon"
+        android:title="@string/read_caption" />
+    <item
+        android:id="@+id/item3"
+        android:icon="@drawable/settings_icon"
+        android:title="@string/setting_caption" />
+</menu>
