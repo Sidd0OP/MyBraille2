@@ -3,30 +3,23 @@ package com.example.mybraille;
 
 import static androidx.core.view.ViewCompat.performHapticFeedback;
 
-import android.content.Intent;
-import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
-import android.view.HapticFeedbackConstants;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
 import com.example.mybraille.activityManager.ActivityManager;
-import com.example.mybraille.character.CharacterController;
-import com.example.mybraille.character.PatternController;
+import com.example.mybraille.controller.CharacterController;
+import com.example.mybraille.controller.PatternController;
 import com.example.mybraille.dot.Dot;
 import com.example.mybraille.dot.DotController;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -69,9 +62,7 @@ public class MainActivity extends AppCompatActivity{
 
     ActivityManager activityManager = new ActivityManager(this);
 
-
     private Vibrator vibrator;
-
 
     /// sound player for character and number audio
     private SoundPool soundPool;
@@ -131,9 +122,6 @@ public class MainActivity extends AppCompatActivity{
         PatternController.setPattern(0);
         //set the dots
         dotController.setDots(PatternController.dotMatrix , dotList);
-
-
-
 
 
 

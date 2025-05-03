@@ -7,7 +7,7 @@
         android:title="@string/learn_caption" />
     <item
         android:id="@+id/item2"
-        android:icon="@drawable/sentence_icon"
+        android:icon="@drawable/sentence"
         android:title="@string/read_caption" />
     <item
         android:id="@+id/item3"

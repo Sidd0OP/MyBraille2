@@ -13,22 +13,22 @@
         android:id="@+id/dot_container"
         android:layout_width="306dp"
         android:layout_height="312dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/dot_container_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/top_heading" />
 
     <TextView
         android:id="@+id/top_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/roboto"
-        android:text="Touch and Feel"
+        android:text="@string/read_title"
         android:textAlignment="center"
         android:textColor="@color/gray"
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/dot_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="10dp"
         android:paddingLeft="0dp"
         android:paddingTop="20dp"
         android:paddingBottom="5dp"

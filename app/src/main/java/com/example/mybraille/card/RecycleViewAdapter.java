@@ -1,5 +1,6 @@
 package com.example.mybraille.card;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,23 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mybraille.R;
+import com.example.mybraille.sentence.Sentences;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
-    public char[] characters;
+    public char[] characterArray = Sentences.chooseRandomSentenceArray();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        private static TextView textView;
+        public TextView textView;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view)
+        {
             super(view);
-
             textView = (TextView) view.findViewById(R.id.character);
         }
 
-        public static TextView getTextView() {
+        public TextView getTextView()
+        {
             return textView;
         }
     }
@@ -38,17 +41,30 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .inflate(R.layout.card, parent, false);
 
         return new ViewHolder(view);
+
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position)
+    {
+        holder.getTextView().setText(characterArray[position] + "");
 
-        ViewHolder.getTextView().setText("B");
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
+        return characterArray.length;
+    }
 
-        return 10;
+    public char[] getCharacterArray()
+    {
+        return characterArray;
+    }
+
+    public void setCharacterArray(char[] characters)
+    {
+        this.characterArray = characters;
     }
 }

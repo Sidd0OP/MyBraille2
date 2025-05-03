@@ -3,4 +3,6 @@
     <string name="learn_caption">Learn</string>
     <string name="read_caption">Read</string>
     <string name="setting_caption">Setting</string>
+    <string name="learn_title">Learn Characters and Numbers</string>
+    <string name="read_title">Read Random Sentences</string>
 </resources>

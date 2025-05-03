@@ -1,12 +1,9 @@
-package com.example.mybraille.character;
+package com.example.mybraille.controller;
 
-import android.media.MediaPlayer;
 import android.widget.TextView;
 
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
-
-import com.example.mybraille.R;
 
 public class CharacterController {
 
@@ -14,6 +11,7 @@ public class CharacterController {
     private static int currentCharacterIndex = 0;
     private SpringAnimation springAnimation;
     private SpringForce spring = new SpringForce(0f);
+
 
 
     public void clockCharacterIndex(int swipeDirection, TextView characterDisplay)
@@ -74,5 +72,30 @@ public class CharacterController {
 
     public int getCurrentCharacterIndex() {
         return currentCharacterIndex;
+    }
+
+
+    public int characterToIndex(char character)
+    {
+        if (character == ' ')
+        {
+            return -1;
+        }
+
+
+        if (character >= 'a' && character <= 'z')
+        {
+            //a = 0 , z = 26
+            return character - 'a';
+        }
+
+        if (character >= '0' && character <= '9') {
+
+            //0 = 26 , 9 = 35
+            return 26 + (character - '0');
+        }
+
+
+        return -1;
     }
 }

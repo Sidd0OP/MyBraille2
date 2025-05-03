@@ -1,9 +1,8 @@
-package com.example.mybraille.character;
+package com.example.mybraille.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class PatternController {
 
@@ -53,7 +52,7 @@ public class PatternController {
                     Arrays.asList(true, true, true, true, false, true),
                     Arrays.asList(true, false, true, true, true, false),
 
-                    //Number from 0 to 9 [Same as A to Z but Double Haptic]
+                    //Number from 0 to 9
                     Arrays.asList(true, false, false, false, false, false),
                     Arrays.asList(true, false, true, false, false, false),
                     Arrays.asList(true, true, false, false, false, false),
@@ -70,6 +69,21 @@ public class PatternController {
 
     public static void setPattern(int characterIndex)
     {
+        //for space
+        if(characterIndex == -1)
+        {
+
+            dotMatrix[0][0] = 0;
+            dotMatrix[0][1] = 0;
+            dotMatrix[1][0] = 0;
+            dotMatrix[1][1] = 0;
+            dotMatrix[2][0] = 0;
+            dotMatrix[2][1] = 0;
+
+            return;
+        }
+
+
         boolean topLeft = patternList.get(characterIndex).get(0);
         boolean topRight = patternList.get(characterIndex).get(1);
         boolean centerLeft = patternList.get(characterIndex).get(2);

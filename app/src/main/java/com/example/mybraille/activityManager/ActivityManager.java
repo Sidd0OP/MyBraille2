@@ -1,5 +1,6 @@
 package com.example.mybraille.activityManager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
@@ -33,6 +34,10 @@ public class ActivityManager {
                     Intent intent = new Intent(context , MainActivity.class);
                     context.startActivity(intent);
 
+                    if (context instanceof Activity) {
+                        ((Activity) context).overridePendingTransition(0, 0);
+                    }
+
                     return true;
 
                 }
@@ -41,6 +46,10 @@ public class ActivityManager {
 
                     Intent intent = new Intent(context , ReadActivity.class);
                     context.startActivity(intent);
+
+                    if (context instanceof Activity) {
+                        ((Activity) context).overridePendingTransition(0, 0);
+                    }
 
                     return true;
 
