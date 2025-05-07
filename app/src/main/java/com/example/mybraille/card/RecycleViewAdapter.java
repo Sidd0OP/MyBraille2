@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mybraille.R;
+import com.example.mybraille.ReadActivity;
+import com.example.mybraille.dot.DotController;
 import com.example.mybraille.sentence.Sentences;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
@@ -49,6 +51,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position)
     {
         holder.getTextView().setText(characterArray[position] + "");
+
 
     }
 

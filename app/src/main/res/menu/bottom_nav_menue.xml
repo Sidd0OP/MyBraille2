@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/item1"
-        android:icon="@drawable/character_number_icon"
+        android:icon="@drawable/book_icon"
         android:title="@string/learn_caption" />
     <item
         android:id="@+id/item2"
-        android:icon="@drawable/sentence"
+        android:icon="@drawable/read_icon"
         android:title="@string/read_caption" />
     <item
         android:id="@+id/item3"
-        android:icon="@drawable/settings_icon"
+        android:icon="@drawable/icon_settings"
         android:title="@string/setting_caption" />
 </menu>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="toolBarColor" format="color" />
+    <attr name="backgroundColor" format="color" />
+    <attr name="dotContainerColor" format="color" />
+    <attr name="swipeBarColor" format="color" />
+    <attr name="characterContainerColor" format="color" />
+    <attr name="bottomBarColor" format="color" />
+    <attr name ="cardFrontColor" format="color"/>
+    <attr name ="cardBackColor" format="color"/>
+
+    <attr name ="dotColorTouch" format="color"/>
+    <attr name ="dotColorNoTouch" format="color"/>
+
+    <attr name="fontColorAct1" format="color"/>
+    <attr name="fontColorAct2" format="color"/>
+
+    <attr name = "seperatorColor" format="color"/>
+
+    <attr name="navBarItemColor" format="color"/>
+
+
+
+
+</resources>

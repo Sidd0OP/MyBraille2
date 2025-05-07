@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         //hide top menue bar
-        getSupportActionBar().hide();
+        setSupportActionBar(findViewById(R.id.toolbar));
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightStatusBars(true);
         setContentView(R.layout.activity_main);
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
         loadSoundPool();
 
         //load root view
-        mainContainer = findViewById(R.id.Container);
+        mainContainer = findViewById(R.id.Container_Read);
 
         //load the bottom bar
         View bottomBar = findViewById(R.id.bottomBar);
@@ -132,6 +132,10 @@ public class MainActivity extends AppCompatActivity{
 
                 switch (e.getAction())
                 {
+                    case MotionEvent.ACTION_DOWN:
+                        // You can add specific logic for ACTION_DOWN if needed.
+                        // For example, you could set a flag to indicate a touch has started.
+                        return true; // Indicates that you've handled the ACTION_DOWN
 
                     case MotionEvent.ACTION_MOVE:
 

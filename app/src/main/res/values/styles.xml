@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/dotContainerColorLight</item>
+        <item name="colorPrimaryVariant">@color/dotContainerColorLight</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
+</resources>

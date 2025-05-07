@@ -5,16 +5,31 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="gray">#A18E8E</color>
 
+    //font dark
+    <color name="fontColorDark">#FFFFFFFF</color>
+
+
+    //light mode colors
+    <color name="toolBarColorLight">#FFDAD7</color>
     <color name="backgroundColorLight">#FFEFE7</color>
-
-    <color name="characterContainerColorLight">#EEC6C6</color>
-
     <color name="dotContainerColorLight">#FFDAD7</color>
+    <color name="swipeBarColorLight">#F9DEDC</color>
+    <color name="characterContainerColorLight">#EEC6C6</color>
+    <color name="bottomBarColorLight">#FFDAD7</color>
+    <color name="seperatorColorLight">#1A000000</color>
 
-    <color name="topBarColorLight">#F9DEDC</color>
+    //dark mode colors
+    <color name="toolBarColorDark">#2B0013</color>
+    <color name="backgroundColorDark">#000000</color>
+    <color name="dotContainerColorDark">#242323</color>
+    <color name="swipeBarColorDark">#2B0013</color>
+    <color name="characterContainerColorDark">#000000</color>
+    <color name="bottomBarColorDark">#000000</color>
+    <color name="seperatorColorDark">#1AFFFFFF</color>
+
 </resources>

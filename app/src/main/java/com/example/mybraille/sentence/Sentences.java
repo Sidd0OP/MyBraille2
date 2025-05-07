@@ -23,16 +23,54 @@ public class Sentences {
     }
 
     public static final List<String> SENTENCES = Arrays.asList(
-            "  Test  ",
-            "  There is nobody here  ",
-            "  Paris is the capital of France  ",
-            "  Cows give us milk  ",
-            "  The tailor made a new dress for the princess  ",
-            "  His success made his parents happy  ",
-            "  You should help yourself  ",
-            "  Whose umbrella is this  ",
-            "  Peter is fatter than Maurice  ",
-            "  Alan is an honest boy  "
+
+            //easy
+            "  there is nobody here  ",
+            "  paris is the capital of france  ",
+            "  cows give us milk  ",
+            "  the tailor made a new dress for the princess  ",
+            "  his success made his parents happy  ",
+            "  you should help yourself  ",
+            "  whose umbrella is this  ",
+            "  peter is fatter than maurice  ",
+            "  alan is an honest boy  " ,
+
+            //long
+            "  the sun dipped below the horizon painting the sky in fiery hues  " ,
+            "  she whispered a secret to the wind hoping it would carry her words far away  ",
+            "  the cat curled up in a patch of sunlight purring softly  ",
+            "  he opened the letter slowly his hands trembling with anticipation  ",
+            "  raindrops tapped against the window each one a tiny reminder of the storm outside  ",
+            "  the old clock ticked steadily marking each second with a quiet certainty  ",
+            "  she found comfort in the quiet where her thoughts could roam freely  ",
+            "  the forest felt alive each leaf rustling like a whispered promise  ",
+            "  he gazed at the stars letting his mind drift into the infinite  ",
+
+
+            //words
+            "  test  ",
+            "  time  ",
+            "  person  ",
+            "  thing  ",
+            "  man  ",
+            "  world  ",
+            "  hand  ",
+            "  part  ",
+            "  child  ",
+            "  woman  ",
+            "  place  ",
+            "  work  ",
+            "  week  ",
+            "  case  ",
+            "  point  ",
+            "  government  ",
+            "  company  ",
+            "  number  ",
+            "  group  ",
+            "  problem  ",
+            "  fact  "
+
+
     );
 
 

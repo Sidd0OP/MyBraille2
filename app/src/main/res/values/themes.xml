@@ -1,9 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.MyBraille" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="android:navigationBarColor">@color/dotContainerColorLight</item>
 
-        <!-- Customize your theme here. -->
+    <style name="Theme.MyBraille" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="navBarItemColor">@color/black</item>
+
+        <item name="toolBarColor">@color/toolBarColorLight</item>
+        <item name="backgroundColor">@color/backgroundColorLight</item>
+        <item name="dotContainerColor">@color/dotContainerColorLight</item>
+        <item name="swipeBarColor">@color/swipeBarColorLight</item>
+        <item name="characterContainerColor">@color/characterContainerColorLight</item>
+        <item name="bottomBarColor">@color/bottomBarColorLight</item>
+        <item name="cardFrontColor">@color/dotContainerColorLight</item>
+        <item name="cardBackColor">@color/dotContainerColorLight</item>
+
+        <item name="dotColorTouch">@color/black</item>
+        <item name="dotColorNoTouch">@color/gray</item>
+
+        <item name="seperatorColor">@color/seperatorColorLight</item>
+        <item name="fontColorAct1">@color/black</item>
+
+
     </style>
 </resources>
+
