@@ -370,13 +370,9 @@ public class ReadActivity extends AppCompatActivity {
             pos++;
             characterIndex++;
 
-            System.out.println(pos + " " + characterIndex);
-
             recyclerView.smoothScrollToPosition(pos);
             //sets the braille pattern
             setPattern(Sentences.getCharArray()[characterIndex]);
-
-            vibrator.vibrate(50);
 
 
         }else{
@@ -400,7 +396,7 @@ public class ReadActivity extends AppCompatActivity {
 
     private void endOfSentence()
     {
-        System.out.println("end of sentence");
+
 
         listenIcon.setVisibility(View.VISIBLE);
         newSentenceIcon.setVisibility(View.VISIBLE);
@@ -433,7 +429,7 @@ public class ReadActivity extends AppCompatActivity {
 
 
         //load all sentence audio
-        for (int i = 1; i <= 37; i++ ) {
+        for (int i = 1; i <= 38; i++ ) {
 
             int soundIndex = i - 1;
             String resName = "audio_" + i;

@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity{
 
         //hide top menue bar
         setSupportActionBar(findViewById(R.id.toolbar));
-        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightStatusBars(true);
         setContentView(R.layout.activity_main);
 
         //bottom navigation bar

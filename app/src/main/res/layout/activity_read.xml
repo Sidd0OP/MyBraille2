@@ -12,7 +12,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bottom_slider"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"

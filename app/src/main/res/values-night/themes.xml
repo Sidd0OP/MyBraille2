@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MyBraille" parent="Theme.AppCompat.DayNight.NoActionBar">
 
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">?attr/toolBarColor</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="navBarItemColor">@color/white</item>
 
         <!-- Primary brand color. -->

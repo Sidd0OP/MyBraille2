@@ -5,6 +5,8 @@ package com.example.mybraille.dot;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 
@@ -107,6 +109,10 @@ public class DotController {
     public void checkDotTouch(List<Dot> dotList , float x , float y , Vibrator vibrator)
     {
 
+        long[] timings = {0,50,3,50};
+//        long[] timings = {0,50,2,20};
+
+
         for(Dot dot : dotList)
         {
             if (isTouchInsideView(x, y, dot.getDot())) {
@@ -118,34 +124,14 @@ public class DotController {
 
                     if(dot.isActive())
                     {
-                        switch(dot.getCoordinate())
-                        {
-                            case 0:
-                                vibrator.vibrate(50);
-                                break;
+                        vibrator.vibrate(timings , -1);
 
-                            case 1:
-                                vibrator.vibrate(30);
-                                break;
+                    }else{
 
-                            case 2:
-                                vibrator.vibrate(45);
-                                break;
-
-                            case 3:
-                                vibrator.vibrate(28);                                                break;
-
-                            case 4:
-                                vibrator.vibrate(48);
-                                break;
-
-                            case 5:
-                                vibrator.vibrate(39);
-                                break;
-
-                        }
+                        vibrator.vibrate(1);
 
                     }
+
 
                 }
 
