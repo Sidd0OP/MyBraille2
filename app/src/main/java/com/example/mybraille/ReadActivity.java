@@ -1,7 +1,6 @@
 package com.example.mybraille;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -71,15 +70,18 @@ public class ReadActivity extends AppCompatActivity {
     //position of character in center
     int characterIndex = 2;
 
-    //end screen data
-    ImageView listenIcon;
-    ImageView newSentenceIcon;
+
 
     TextView slideText;
 
     View endScreen;
     View bottomBar;
     View slider;
+
+    TextView leftText;
+    TextView rightText;
+
+    ImageView endGraphic;
 
     public float initialTouchX;
     public float initialSliderX;
@@ -93,7 +95,7 @@ public class ReadActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
 
-//        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_read);
 
         loadSoundPool();
@@ -139,21 +141,26 @@ public class ReadActivity extends AppCompatActivity {
         );
 
 
-        listenIcon = findViewById(R.id.listen_icon);
-        newSentenceIcon = findViewById(R.id.new_icon);
+
 
         slideText = findViewById(R.id.slide_text);
+        leftText = findViewById(R.id.listenText);
+        rightText = findViewById(R.id.newText);
+
 
         endScreen = findViewById(R.id.end_screen);
         bottomBar = findViewById(R.id.bottomBar);
         slider = findViewById(R.id.slider);
 
-        listenIcon.setVisibility(View.INVISIBLE);
-        newSentenceIcon.setVisibility(View.INVISIBLE);
+        endGraphic = findViewById(R.id.graphic);
+
         endScreen.setVisibility(View.INVISIBLE);
         bottomBar.setVisibility(View.INVISIBLE);
         slider.setVisibility(View.INVISIBLE);
         slideText.setVisibility(View.INVISIBLE);
+        leftText.setVisibility(View.INVISIBLE);
+        rightText.setVisibility(View.INVISIBLE);
+        endGraphic.setVisibility(View.INVISIBLE);
 
 
 
@@ -347,8 +354,10 @@ public class ReadActivity extends AppCompatActivity {
                         overridePendingTransition(0, 0);
 
                     }
+
                     springAnimation.start();
                     slideText.setAlpha(1.0f);
+
                 return true;
             }
 
@@ -365,7 +374,7 @@ public class ReadActivity extends AppCompatActivity {
 
 
         //reached end
-        if(characterIndex <= Sentences.getCharArray().length - 2)
+        if(characterIndex < Sentences.getCharArray().length - 3)
         {
             pos++;
             characterIndex++;
@@ -398,12 +407,15 @@ public class ReadActivity extends AppCompatActivity {
     {
 
 
-        listenIcon.setVisibility(View.VISIBLE);
-        newSentenceIcon.setVisibility(View.VISIBLE);
         endScreen.setVisibility(View.VISIBLE);
         bottomBar.setVisibility(View.VISIBLE);
         slider.setVisibility(View.VISIBLE);
         slideText.setVisibility(View.VISIBLE);
+
+        leftText.setVisibility(View.VISIBLE);
+        rightText.setVisibility(View.VISIBLE);
+        endGraphic.setVisibility(View.VISIBLE);
+
 
     }
 

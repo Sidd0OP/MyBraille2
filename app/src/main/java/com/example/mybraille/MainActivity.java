@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.mybraille.activityManager.ActivityManager;
 import com.example.mybraille.controller.CharacterController;
@@ -79,6 +82,12 @@ public class MainActivity extends AppCompatActivity{
         //hide top menue bar
         setSupportActionBar(findViewById(R.id.toolbar));
         setContentView(R.layout.activity_main);
+
+
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+
+//        getWindow().setStatusBarColor(getResources().getColor(R.color.));
+
 
         //bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);

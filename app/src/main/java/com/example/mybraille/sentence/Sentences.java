@@ -48,7 +48,6 @@ public class Sentences {
 
 
             //words
-            "  test  ",
             "  time  ",
             "  person  ",
             "  thing  ",
